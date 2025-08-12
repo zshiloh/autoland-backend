@@ -1,18 +1,17 @@
-# Etapa 1: Build
-FROM maven:3.9.6-eclipse-temurin-17 AS builder
+# Imagen base con JDK 21
+FROM openjdk:21-jdk-slim
+
+# Directorio de trabajo dentro del contenedor
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
 
-# Etapa 2: Run
-FROM eclipse-temurin:17-jdk
-WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+# Copiamos el proyecto completo
+COPY . .
 
-# Puerto que Render usará (usa variable PORT)
-ENV PORT=8081
-EXPOSE ${PORT}
+# Compilar el proyecto usando Maven Wrapper
+RUN ./mvnw clean package -DskipTests
 
-# Comando para iniciar la aplicación
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Exponer el puerto dinámico que Render asigna
+EXPOSE 8081
+
+# Comando para ejecutar la app
+CMD ["java", "-jar", "target/ren-0.0.1-SNAPSHOT.jar"]
