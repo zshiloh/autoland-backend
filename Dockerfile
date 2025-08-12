@@ -1,24 +1,17 @@
-# Imagen base con JDK 21
+# Imagen base con JDK 17 (no 21)
 FROM openjdk:21-jdk-slim
 
 # Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar solo lo necesario primero
-COPY pom.xml .
-COPY mvnw .
-COPY .mvn .mvn
-COPY src ./src
+# Copiamos el proyecto completo
+COPY . .
 
-# Dar permisos de ejecución al wrapper de Maven
-RUN chmod +x mvnw
+# Dar permisos de ejecución al Maven Wrapper y compilar el proyecto
+RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
-# Compilar sin ejecutar tests
-RUN ./mvnw clean package -DskipTests
+# Exponer el puerto dinámico que Render asigna
+EXPOSE 8080
 
-# Puerto para Render
-ENV PORT=8080
-EXPOSE ${PORT}
-
-# Ejecutar el .jar (ajusta el nombre si es diferente)
-CMD ["java", "-Dserver.port=${PORT}", "-jar", "target/autoland-0.0.1-SNAPSHOT.jar"]
+# Comando para ejecutar la app
+CMD ["java", "-jar", "target/autoland-0.0.1-SNAPSHOT.jar"]
