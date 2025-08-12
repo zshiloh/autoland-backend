@@ -11,7 +11,7 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # Puerto que Render usará (usa variable PORT)
-ENV PORT=8080
+ENV PORT=8081
 EXPOSE ${PORT}
 
 # Comando para iniciar la aplicación
