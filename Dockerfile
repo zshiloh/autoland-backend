@@ -10,6 +10,9 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY src ./src
 
+# Dar permisos de ejecución al wrapper de Maven
+RUN chmod +x mvnw
+
 # Compilar sin ejecutar tests
 RUN ./mvnw clean package -DskipTests
 
