@@ -1,8 +1,7 @@
-package com.proyecto.autoland.service;
+package com.proyecto.autoland.security;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import com.proyecto.autoland.security.JwtUtil;
 import com.proyecto.autoland.model.Usuario;
 
 class JwtUtilTest {

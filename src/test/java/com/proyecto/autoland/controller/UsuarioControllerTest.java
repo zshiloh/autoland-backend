@@ -1,4 +1,4 @@
-package com.proyecto.autoland.service;
+package com.proyecto.autoland.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.proyecto.autoland.model.Usuario;
 
-class UsuarioServiceTest {
+class UsuarioControllerTest {
 
     @Test
     void testCrearUsuario() {
